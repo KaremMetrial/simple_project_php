@@ -1,8 +1,13 @@
-<?php require "includes/header.php"; ?>
+<?php
+require "includes/header.php"; ?>
 <?php
 require "config.php";
 ?>
 <?php
+if (isset($_SESSION['username'])) {
+    header('Location: index.php');
+    exit();
+}
 $message = '';
 //check form has been submitted
 if (isset($_POST['submit'])) {
@@ -28,7 +33,13 @@ if (isset($_POST['submit'])) {
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             //check if a correct password
             if ($data && password_verify($password, $data['password'])) {
-                $message = 'You are now logged in.';
+//                $message = 'You are now logged in.';
+                $_SESSION['user_id'] = $data['id'];
+                $_SESSION['email'] = $data['email'];
+                $_SESSION['username'] = $data['username'];
+
+                header("Location:index.php");
+                exit();
             }else {
                 $message = "Invalid username or password.";
             }

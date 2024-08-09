@@ -2,6 +2,11 @@
 <?php require "config.php"; ?>
 
 <?php
+// Redirect to index if the user is already logged in
+if (isset($_SESSION['username'])) {
+    header('Location: index.php');
+    exit();
+}
 $message = '';
 
 //check form has been submitted

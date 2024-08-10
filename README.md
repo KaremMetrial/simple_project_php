@@ -1,1 +1,1 @@
-# simple_project_php
+# Simple Auth System Using PHP
